@@ -1,6 +1,14 @@
 package com.skillstorm.inventory_management_backend;
 
 public class Warehouse {
+
+    private int id;
+
+    private String name;
+
+    private int maximumCapacity;
+
+    private Location location;
     
     public static boolean hasThreeCharacters(String input) {
             return input.length() >= 3;
