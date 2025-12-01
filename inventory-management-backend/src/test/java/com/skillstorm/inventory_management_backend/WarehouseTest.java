@@ -18,13 +18,11 @@ public class WarehouseTest {
                 - Location must include a country
                         - Location country name must contain at least 3 characters
                         - Name cannot be empty
-                - Location must include an address
                 - Locaiton must include a city
                         - Location city name must contain at least 3 characters
                         - Name cannot be empty
-                - If the country in United States of America, location must include the city
-                - If the country in United States of America, location must include the state
-                - If the country is not the United States of America, an optional region field should be shown
+                - Location must include an address
+                - Location should include a state/region field
             Maximum capacity must be added
     */
 
