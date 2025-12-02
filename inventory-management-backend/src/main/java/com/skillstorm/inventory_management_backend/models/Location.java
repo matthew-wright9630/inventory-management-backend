@@ -27,24 +27,29 @@ public class Location {
     @Column(name = "state_or_region")
     private String stateOrRegion;
 
-    @OneToMany
+    @Column(name = "is_active")
+    private boolean isActive;
+
+    @OneToMany(targetEntity = Warehouse.class, mappedBy = "location")
     @JsonIgnore
     private Set<Warehouse> warehouses;
 
     public Location() {
     }
 
-    public Location(int id, String country, String stateOrRegion, Set<Warehouse> warehouses) {
+    public Location(int id, String country, String stateOrRegion, boolean isActive, Set<Warehouse> warehouses) {
         this.id = id;
         this.country = country;
         this.stateOrRegion = stateOrRegion;
         this.warehouses = warehouses;
+        this.isActive = isActive;
     }
 
-    public Location(String country, String stateOrRegion, Set<Warehouse> warehouses) {
+    public Location(String country, String stateOrRegion, boolean isActive, Set<Warehouse> warehouses) {
         this.country = country;
         this.stateOrRegion = stateOrRegion;
         this.warehouses = warehouses;
+        this.isActive = isActive;
     }
 
     public int getId() {
@@ -80,6 +85,14 @@ public class Location {
         this.warehouses = warehouses;
     }
 
+    public boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -87,6 +100,7 @@ public class Location {
         result = prime * result + id;
         result = prime * result + ((country == null) ? 0 : country.hashCode());
         result = prime * result + ((stateOrRegion == null) ? 0 : stateOrRegion.hashCode());
+        result = prime * result + (isActive ? 1231 : 1237);
         result = prime * result + ((warehouses == null) ? 0 : warehouses.hashCode());
         return result;
     }
@@ -112,6 +126,8 @@ public class Location {
                 return false;
         } else if (!stateOrRegion.equals(other.stateOrRegion))
             return false;
+        if (isActive != other.isActive)
+            return false;
         if (warehouses == null) {
             if (other.warehouses != null)
                 return false;
@@ -122,7 +138,8 @@ public class Location {
 
     @Override
     public String toString() {
-        return "Location [id=" + id + ", country=" + country + ", stateOrRegion=" + stateOrRegion + "]";
+        return "Location [id=" + id + ", country=" + country + ", stateOrRegion=" + stateOrRegion + ", isActive="
+                + isActive + "]";
     }
 
 }
