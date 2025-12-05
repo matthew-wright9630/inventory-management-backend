@@ -13,9 +13,9 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="location")
+@Table(name = "location")
 public class Location {
-    
+
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -76,7 +76,6 @@ public class Location {
         this.stateOrRegion = stateOrRegion;
     }
 
-    
     public Set<Warehouse> getWarehouses() {
         return warehouses;
     }
@@ -91,6 +90,11 @@ public class Location {
 
     public void setActive(boolean isActive) {
         this.isActive = isActive;
+    }
+
+    public boolean isEmpty() {
+        System.out.println(id);
+        return (id <= 0);
     }
 
     @Override

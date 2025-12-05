@@ -4,8 +4,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skillstorm.inventory_management_backend.models.Warehouse;
 import com.skillstorm.inventory_management_backend.services.WarehouseService;
+import com.skillstorm.inventory_management_backend.validators.WarehouseValidator;
 
-import java.net.http.HttpResponse;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class WarehouseController {
 
     private final WarehouseService warehouseService;
+    private WarehouseValidator validator;
 
-    public WarehouseController(WarehouseService warehouseService) {
+    public WarehouseController(WarehouseService warehouseService, WarehouseValidator validator) {
         this.warehouseService = warehouseService;
+        this.validator = validator;
     }
 
     @GetMapping
@@ -36,15 +38,22 @@ public class WarehouseController {
         }
     }
 
+    /**
+     * This is going to send back a list of warehouses where the capacity is
+     * capicityPercent full. (such as 90 full).
+     * 
+     * @param capacityPercent
+     * @return
+     */
     @GetMapping("/capacity")
-    public String getMethodName(@RequestParam(required = false) int capacity,
-            @RequestParam(required = false) String country, @RequestParam(required = false) String stateOrRegion) {
+    public String getMethodName(@RequestParam(required = false) int capacityPercent) {
         return new String();
     }
 
     @PostMapping
     public ResponseEntity<Warehouse> createWarehouse(@RequestBody Warehouse warehouse) {
         try {
+            validator.validateWarehouse(warehouse);
             Warehouse returnedWarehouse = warehouseService.createWarehouse(warehouse);
             return new ResponseEntity<>(returnedWarehouse, HttpStatus.CREATED);
         } catch (Exception e) {

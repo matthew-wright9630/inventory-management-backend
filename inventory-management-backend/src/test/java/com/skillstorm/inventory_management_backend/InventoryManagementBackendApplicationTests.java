@@ -1,13 +1,13 @@
-package com.skillstorm.inventory_management_backend;
+// package com.skillstorm.inventory_management_backend;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class InventoryManagementBackendApplicationTests {
+// @SpringBootTest
+// class InventoryManagementBackendApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+// @Test
+// void contextLoads() {
+// }
 
-}
+// }

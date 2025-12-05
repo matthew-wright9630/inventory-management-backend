@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.skillstorm.inventory_management_backend.models.Location;
 import com.skillstorm.inventory_management_backend.validators.WarehouseValidator;
 
 public class WarehouseTest {
@@ -24,11 +25,12 @@ public class WarehouseTest {
      * - Location city name must contain at least 3 characters
      * - City cannot be empty
      * - Location must include an address
-     * - Address must contain at least 3 characters
-     * - Address cannot be empty
      * - Location should include a state/region field
      * - State/Region must contain at least 3 characters
      * - State/Region cannot be empty
+     * Address needs to be added
+     * - Address must contain at least 3 characters
+     * - Address cannot be empty
      * Maximum capacity must be added
      * - Max Capacity must be an integer value
      * - Max Capacity must be greater than 0
@@ -154,5 +156,17 @@ public class WarehouseTest {
         assertFalse(WarehouseValidator.greaterThanZero(0));
         assertFalse(WarehouseValidator.greaterThanZero(-100));
         assertTrue(WarehouseValidator.greaterThanZero(1000));
+    }
+
+    @Test
+    @DisplayName("Location is not empty")
+    public void testLocationIsNotEmpty() {
+        assertThrows(NullPointerException.class, () -> {
+            WarehouseValidator.locationIsNotEmpty(null);
+        });
+        Location location = new Location();
+        assertFalse(WarehouseValidator.locationIsNotEmpty(location));
+        location.setId(5);
+        assertTrue(WarehouseValidator.locationIsNotEmpty(location));
     }
 }

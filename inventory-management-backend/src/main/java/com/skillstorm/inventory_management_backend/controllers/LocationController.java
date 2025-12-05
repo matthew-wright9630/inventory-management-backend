@@ -1,7 +1,6 @@
 package com.skillstorm.inventory_management_backend.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skillstorm.inventory_management_backend.models.Location;
@@ -18,13 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
-
-
 @RestController
 @RequestMapping("/locations")
 public class LocationController {
-    
+
     private final LocationService locationService;
 
     public LocationController(LocationService locationService) {
