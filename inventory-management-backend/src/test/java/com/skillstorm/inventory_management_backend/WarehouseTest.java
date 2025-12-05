@@ -17,23 +17,16 @@ public class WarehouseTest {
      * Name needs to be added
      * - Name must contain at least 3 characters
      * - Name cannot be empty
-     * Location needs to be added
-     * - Location must include a country
-     * - Location country name must contain at least 3 characters
-     * - Country cannot be empty
-     * - Locaiton must include a city
-     * - Location city name must contain at least 3 characters
-     * - City cannot be empty
-     * - Location must include an address
-     * - Location should include a state/region field
-     * - State/Region must contain at least 3 characters
-     * - State/Region cannot be empty
      * Address needs to be added
      * - Address must contain at least 3 characters
      * - Address cannot be empty
+     * Address Line Two needs to be added
+     * - Address Line Two must contain at least 3 characters
+     * - Address Line Two cannot be empty
      * Maximum capacity must be added
      * - Max Capacity must be an integer value
      * - Max Capacity must be greater than 0
+     * Location cannot be empty
      */
 
     // Creation Tests
@@ -55,46 +48,6 @@ public class WarehouseTest {
     }
 
     @Test
-    @DisplayName("Country name has at least three characters")
-    public void testCountryHasThreeCharacters() {
-        assertFalse(WarehouseValidator.hasThreeCharacters(""));
-        assertFalse(WarehouseValidator.hasThreeCharacters("US"));
-        assertThrows(NullPointerException.class, () -> {
-            WarehouseValidator.hasThreeCharacters(null);
-        });
-        assertTrue(WarehouseValidator.hasThreeCharacters("United States of America"));
-    }
-
-    @Test
-    @DisplayName("Country is not null")
-    public void testCountryIsNotNull() {
-        assertThrows(NullPointerException.class, () -> {
-            WarehouseValidator.notEmptyString(null);
-        });
-        assertTrue(WarehouseValidator.notEmptyString("United Kingdom"));
-    }
-
-    @Test
-    @DisplayName("City name has at least three characters")
-    public void testCityHasThreeCharacters() {
-        assertFalse(WarehouseValidator.hasThreeCharacters(""));
-        assertFalse(WarehouseValidator.hasThreeCharacters("aa"));
-        assertThrows(NullPointerException.class, () -> {
-            WarehouseValidator.hasThreeCharacters(null);
-        });
-        assertTrue(WarehouseValidator.hasThreeCharacters("Woodburn"));
-    }
-
-    @Test
-    @DisplayName("City is not null")
-    public void testCityIsNotNull() {
-        assertThrows(NullPointerException.class, () -> {
-            WarehouseValidator.notEmptyString(null);
-        });
-        assertTrue(WarehouseValidator.notEmptyString("Greenville"));
-    }
-
-    @Test
     @DisplayName("Address has at least three characters")
     public void testAddressHasThreeCharacters() {
         assertFalse(WarehouseValidator.hasThreeCharacters(""));
@@ -106,7 +59,7 @@ public class WarehouseTest {
     }
 
     @Test
-    @DisplayName("Location Address is not Null")
+    @DisplayName("Address is not Null")
     public void testAddressIsNotNull() {
         assertThrows(NullPointerException.class, () -> {
             WarehouseValidator.notEmptyString(null);
@@ -115,24 +68,23 @@ public class WarehouseTest {
     }
 
     @Test
-    @DisplayName("State or region has at least two characters")
-    public void testStateOrRegionHasThreeCharacters() {
-        assertFalse(WarehouseValidator.hasTwoCharacters(""));
-        assertFalse(WarehouseValidator.hasTwoCharacters("a"));
+    @DisplayName("Address Line Two has at least three characters")
+    public void testAddressLineTwoHasThreeCharacters() {
+        assertFalse(WarehouseValidator.hasThreeCharacters(""));
+        assertFalse(WarehouseValidator.hasThreeCharacters("aa"));
         assertThrows(NullPointerException.class, () -> {
-            WarehouseValidator.hasTwoCharacters(null);
+            WarehouseValidator.hasThreeCharacters(null);
         });
-        assertTrue(WarehouseValidator.hasTwoCharacters("IN"));
-        assertTrue(WarehouseValidator.hasTwoCharacters("Idiana"));
+        assertTrue(WarehouseValidator.hasThreeCharacters("987 Testing Ave."));
     }
 
     @Test
-    @DisplayName("State or region is not Null")
-    public void testStateOrRegionIsNotNull() {
+    @DisplayName("Address Line Two is not Null")
+    public void testAddressLineTwoIsNotNull() {
         assertThrows(NullPointerException.class, () -> {
             WarehouseValidator.notEmptyString(null);
         });
-        assertTrue(WarehouseValidator.notEmptyString("South Carolina"));
+        assertTrue(WarehouseValidator.notEmptyString("1234 Test Rd"));
     }
 
     @Test

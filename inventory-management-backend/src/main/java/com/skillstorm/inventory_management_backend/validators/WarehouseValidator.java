@@ -26,10 +26,6 @@ public class WarehouseValidator {
         }
     }
 
-    public static boolean hasTwoCharacters(String input) {
-        return input.length() >= 2;
-    }
-
     public static boolean inputIsInteger(String input) {
         try {
             Integer.parseInt(input);
