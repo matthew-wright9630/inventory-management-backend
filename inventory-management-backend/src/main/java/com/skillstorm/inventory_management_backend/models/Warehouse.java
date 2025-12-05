@@ -24,44 +24,48 @@ public class Warehouse {
 
     @Column
     private String address;
-    
+
     @Column(name = "address_two")
     private String addressLineTwo;
 
+    @Column(name = "is_active")
+    private boolean isActive;
+
     @ManyToOne
-    @JoinColumn(name= "location_id")
+    @JoinColumn(name = "location_id")
     private Location location;
-    
+
     public Warehouse() {
     }
 
-    public Warehouse(int id, String name, int maximumCapacity, String address, String addressLineTwo, Location location) {
+    public Warehouse(int id, String name, int maximumCapacity, String address, String addressLineTwo, boolean isActive,
+            Location location) {
         this.id = id;
         this.name = name;
         this.maximumCapacity = maximumCapacity;
         this.address = address;
         this.addressLineTwo = addressLineTwo;
+        this.isActive = isActive;
         this.location = location;
-        }
+    }
 
-    public Warehouse(String name, int maximumCapacity, String address, String addressLineTwo, Location location) {
+    public Warehouse(String name, int maximumCapacity, String address, String addressLineTwo, boolean isActive,
+            Location location) {
         this.name = name;
         this.maximumCapacity = maximumCapacity;
         this.address = address;
         this.addressLineTwo = addressLineTwo;
+        this.isActive = isActive;
         this.location = location;
     }
-
 
     public int getId() {
         return id;
     }
 
-
     public void setId(int id) {
         this.id = id;
     }
-
 
     public String getName() {
         return name;
@@ -71,11 +75,9 @@ public class Warehouse {
         this.name = name;
     }
 
-
     public int getMaximumCapacity() {
         return maximumCapacity;
     }
-
 
     public void setMaximumCapacity(int maximumCapacity) {
         this.maximumCapacity = maximumCapacity;
@@ -105,6 +107,13 @@ public class Warehouse {
         this.location = location;
     }
 
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
+    }
 
     @Override
     public int hashCode() {
@@ -115,17 +124,10 @@ public class Warehouse {
         result = prime * result + maximumCapacity;
         result = prime * result + ((address == null) ? 0 : address.hashCode());
         result = prime * result + ((addressLineTwo == null) ? 0 : addressLineTwo.hashCode());
+        result = prime * result + (isActive ? 1231 : 1237);
         result = prime * result + ((location == null) ? 0 : location.hashCode());
         return result;
     }
-
-
-    @Override
-    public String toString() {
-        return "Warehouse [id=" + id + ", name=" + name + ", maximumCapacity=" + maximumCapacity + ", address="
-                + address + ", addressLineTwo=" + addressLineTwo + ", location=" + location + "]";
-    }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -155,6 +157,8 @@ public class Warehouse {
                 return false;
         } else if (!addressLineTwo.equals(other.addressLineTwo))
             return false;
+        if (isActive != other.isActive)
+            return false;
         if (location == null) {
             if (other.location != null)
                 return false;
@@ -163,12 +167,15 @@ public class Warehouse {
         return true;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return "Warehouse [id=" + id + ", name=" + name + ", maximumCapacity=" + maximumCapacity + ", address="
+                + address + ", addressLineTwo=" + addressLineTwo + ", isActive=" + isActive + ", location=" + location
+                + "]";
+    }
 
     public static boolean hasThreeCharacters(String input) {
-            return input.length() >= 3;
+        return input.length() >= 3;
     }
 
     public static boolean notEmptyString(String input) {
