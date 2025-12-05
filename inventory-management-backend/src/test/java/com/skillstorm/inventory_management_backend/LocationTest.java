@@ -15,10 +15,7 @@ public class LocationTest {
      * Location must include a country
      * - Location country name must contain at least 3 characters
      * - Country cannot be empty
-     * Location must include a city
-     * - Location city name must contain at least 3 characters
-     * - City cannot be empty
-     * - Location should include a state/region field
+     * Location should include a state/region field
      * - State/Region must contain at least 3 characters
      * - State/Region cannot be empty
      */
@@ -41,26 +38,6 @@ public class LocationTest {
             LocationValidator.notEmptyString(null);
         });
         assertTrue(LocationValidator.notEmptyString("United Kingdom"));
-    }
-
-    @Test
-    @DisplayName("City name has at least three characters")
-    public void testCityHasThreeCharacters() {
-        assertFalse(LocationValidator.hasThreeCharacters(""));
-        assertFalse(LocationValidator.hasThreeCharacters("aa"));
-        assertThrows(NullPointerException.class, () -> {
-            LocationValidator.hasThreeCharacters(null);
-        });
-        assertTrue(LocationValidator.hasThreeCharacters("Woodburn"));
-    }
-
-    @Test
-    @DisplayName("City is not null")
-    public void testCityIsNotNull() {
-        assertThrows(NullPointerException.class, () -> {
-            LocationValidator.notEmptyString(null);
-        });
-        assertTrue(LocationValidator.notEmptyString("Greenville"));
     }
 
     @Test
