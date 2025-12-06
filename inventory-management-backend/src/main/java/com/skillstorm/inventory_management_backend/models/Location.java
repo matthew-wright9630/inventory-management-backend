@@ -27,7 +27,7 @@ public class Location {
     @Column(name = "state_or_region")
     private String stateOrRegion;
 
-    @Column(name = "is_active")
+    @Column(name = "is_active", insertable = false)
     private boolean isActive;
 
     @OneToMany(targetEntity = Warehouse.class, mappedBy = "location")

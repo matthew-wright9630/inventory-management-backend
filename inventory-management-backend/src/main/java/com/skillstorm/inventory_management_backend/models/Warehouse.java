@@ -28,7 +28,7 @@ public class Warehouse {
     @Column(name = "address_two")
     private String addressLineTwo;
 
-    @Column(name = "is_active")
+    @Column(name = "is_active", insertable = false)
     private boolean isActive;
 
     @ManyToOne

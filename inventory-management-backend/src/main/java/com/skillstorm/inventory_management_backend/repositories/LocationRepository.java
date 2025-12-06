@@ -13,11 +13,6 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface LocationRepository extends JpaRepository<Location, Integer> {
 
-        // @Query("update Movie m set m.title = :new_title where id = :movie_id")
-        // @Modifying  
-        // @Transactional      // for transaction management in spring boot
-        // public int updateMovieTitle(@Param("movie_id") int id, @Param("new_title") String newTitle);
-
         @Query("update Location l set l.isActive = :new_isActive where id = :location_id")
         @Modifying
         @Transactional

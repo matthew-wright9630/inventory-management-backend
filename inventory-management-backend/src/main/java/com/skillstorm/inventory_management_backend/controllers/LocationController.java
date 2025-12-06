@@ -59,10 +59,11 @@ public class LocationController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Location> deleteLocation(@PathVariable int id) {
+    public ResponseEntity<Void> deleteLocation(@PathVariable int id) {
         try {
             Location location = locationService.findLocationById(id);
-            return new ResponseEntity<Location>(locationService.deleteLocation(location), HttpStatus.OK);
+            locationService.deleteLocation(location);
+            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().header("message", e.getMessage()).build();
         }
