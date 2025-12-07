@@ -6,12 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.skillstorm.inventory_management_backend.models.ItemDetails;
+import com.skillstorm.inventory_management_backend.models.ItemDetail;
 
 import jakarta.transaction.Transactional;
 
 @Repository
-public interface ItemDetailsRepository extends JpaRepository<ItemDetails, Integer> {
+public interface ItemDetailRepository extends JpaRepository<ItemDetail, Integer> {
 
     @Query("update ItemDetails iDetails set iDetails.isActive = :new_isActive where id = :item_deails_id")
     @Modifying

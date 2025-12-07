@@ -12,7 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class ItemDetails {
+public class ItemDetail {
 
     @Id
     @Column
@@ -28,26 +28,27 @@ public class ItemDetails {
     @Column
     private String description;
 
+    @Column(name = "shelf_life")
+    private int shelfLife = 9999;
+
     @OneToMany(mappedBy = "item_details")
     @JsonIgnore
     private Set<Item> items;
 
-    public ItemDetails() {
+    public ItemDetail() {
     }
 
-    public ItemDetails(int id, String name, String sku, String description, Set<Item> items) {
-        this.id = id;
+    public ItemDetail(String name, String sku, String description, int shelfLife) {
         this.name = name;
         this.sku = sku;
         this.description = description;
-        this.items = items;
+        this.shelfLife = shelfLife;
     }
 
-    public ItemDetails(String name, String sku, String description, Set<Item> items) {
+    public ItemDetail(String name, String sku, String description) {
         this.name = name;
         this.sku = sku;
         this.description = description;
-        this.items = items;
     }
 
     public int getId() {
@@ -90,6 +91,14 @@ public class ItemDetails {
         this.items = items;
     }
 
+    public int getShelfLife() {
+        return shelfLife;
+    }
+
+    public void setShelfLife(int shelfLife) {
+        this.shelfLife = shelfLife;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -98,6 +107,7 @@ public class ItemDetails {
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((sku == null) ? 0 : sku.hashCode());
         result = prime * result + ((description == null) ? 0 : description.hashCode());
+        result = prime * result + shelfLife;
         result = prime * result + ((items == null) ? 0 : items.hashCode());
         return result;
     }
@@ -110,7 +120,7 @@ public class ItemDetails {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        ItemDetails other = (ItemDetails) obj;
+        ItemDetail other = (ItemDetail) obj;
         if (id != other.id)
             return false;
         if (name == null) {
@@ -128,6 +138,8 @@ public class ItemDetails {
                 return false;
         } else if (!description.equals(other.description))
             return false;
+        if (shelfLife != other.shelfLife)
+            return false;
         if (items == null) {
             if (other.items != null)
                 return false;
@@ -138,7 +150,7 @@ public class ItemDetails {
 
     @Override
     public String toString() {
-        return "ItemDetails [id=" + id + ", name=" + name + ", sku=" + sku + ", description=" + description + "]";
+        return "ItemDetails [id=" + id + ", name=" + name + ", sku=" + sku + ", description=" + description
+                + ", shelfLife=" + shelfLife + "]";
     }
-
 }

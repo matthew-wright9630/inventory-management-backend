@@ -4,12 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.hibernate.mapping.Set;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.skillstorm.inventory_management_backend.validators.ItemDetailsValidator;
+import com.skillstorm.inventory_management_backend.models.Item;
+import com.skillstorm.inventory_management_backend.models.ItemDetail;
+import com.skillstorm.inventory_management_backend.validators.ItemDetailValidator;
 
-public class ItemDetailsTest {
+public class ItemDetailTest {
 
     /**
      * Item details must include a name
@@ -28,43 +31,43 @@ public class ItemDetailsTest {
     @DisplayName("Item Details Name has at least three characters")
     public void testNameHasThreeCharacters() {
         assertThrows(IllegalArgumentException.class, () -> {
-            ItemDetailsValidator.hasThreeCharacters("");
+            ItemDetailValidator.hasThreeCharacters("");
         });
         assertThrows(IllegalArgumentException.class, () -> {
-            ItemDetailsValidator.hasThreeCharacters("IT");
+            ItemDetailValidator.hasThreeCharacters("IT");
         });
-        assertTrue(ItemDetailsValidator.notEmptyString("Item details 1"));
+        assertTrue(ItemDetailValidator.notEmptyString("Item details 1"));
     }
 
     @Test
     @DisplayName("Item Details Name is not null")
     public void testNameIsNotNull() {
         assertThrows(IllegalArgumentException.class, () -> {
-            ItemDetailsValidator.notEmptyString(null);
+            ItemDetailValidator.notEmptyString(null);
         });
-        assertTrue(ItemDetailsValidator.notEmptyString("New item details"));
+        assertTrue(ItemDetailValidator.notEmptyString("New item details"));
     }
 
     @Test
     @DisplayName("SKU number is not null")
     public void testSKUIsNotNull() {
         assertThrows(IllegalArgumentException.class, () -> {
-            ItemDetailsValidator.notEmptyString(null);
+            ItemDetailValidator.notEmptyString(null);
         });
-        assertTrue(ItemDetailsValidator.notEmptyString("1"));
-        assertTrue(ItemDetailsValidator.notEmptyString("34562-x5-433"));
+        assertTrue(ItemDetailValidator.notEmptyString("1"));
+        assertTrue(ItemDetailValidator.notEmptyString("34562-x5-433"));
     }
 
     @Test
     @DisplayName("Item description field has at least three characters")
     public void testDescriptionHasThreeCharacters() {
         assertThrows(IllegalArgumentException.class, () -> {
-            ItemDetailsValidator.hasThreeCharacters("");
+            ItemDetailValidator.hasThreeCharacters("");
         });
         assertThrows(IllegalArgumentException.class, () -> {
-            ItemDetailsValidator.hasThreeCharacters("aa");
+            ItemDetailValidator.hasThreeCharacters("aa");
         });
-        assertTrue(ItemDetailsValidator
+        assertTrue(ItemDetailValidator
                 .hasThreeCharacters("This is a details of a test item. A real item does not exist."));
     }
 
@@ -72,35 +75,42 @@ public class ItemDetailsTest {
     @DisplayName("Item description field is not Null")
     public void testDescriptionIsNotNull() {
         assertThrows(IllegalArgumentException.class, () -> {
-            ItemDetailsValidator.notEmptyString(null);
+            ItemDetailValidator.notEmptyString(null);
         });
-        assertTrue(ItemDetailsValidator.notEmptyString("Test Description"));
+        assertTrue(ItemDetailValidator.notEmptyString("Test Description"));
     }
 
     @Test
     @DisplayName("Shelf-life is an integer")
     public void testShelfLifeIsInteger() {
         assertThrows(IllegalArgumentException.class, () -> {
-            ItemDetailsValidator.inputIsInteger("Test");
+            ItemDetailValidator.inputIsInteger("Test");
         });
         assertThrows(IllegalArgumentException.class, () -> {
-            ItemDetailsValidator.inputIsInteger("15.5");
+            ItemDetailValidator.inputIsInteger("15.5");
         });
         assertThrows(IllegalArgumentException.class, () -> {
-            ItemDetailsValidator.inputIsInteger("true");
+            ItemDetailValidator.inputIsInteger("true");
         });
-        assertTrue(ItemDetailsValidator.inputIsInteger("10000"));
+        assertTrue(ItemDetailValidator.inputIsInteger("10000"));
     }
 
     @Test
     @DisplayName("Shelf life is greater than zero")
     public void testShelfLifeIsGreaterThanZero() {
         assertThrows(IllegalArgumentException.class, () -> {
-            ItemDetailsValidator.greaterThanZero(0);
+            ItemDetailValidator.greaterThanZero(0);
         });
         assertThrows(IllegalArgumentException.class, () -> {
-            ItemDetailsValidator.greaterThanZero(-100);
+            ItemDetailValidator.greaterThanZero(-100);
         });
-        assertTrue(ItemDetailsValidator.greaterThanZero(1000));
+        assertTrue(ItemDetailValidator.greaterThanZero(1000));
+    }
+
+    @Test
+    @DisplayName("Item Detail full validation")
+    public void testItemDetail() {
+        ItemDetail itemDetail = new ItemDetail("Name", "14342-4c", "This is a test description");
+        assertTrue(ItemDetailValidator.validateItemDetails(itemDetail));
     }
 }

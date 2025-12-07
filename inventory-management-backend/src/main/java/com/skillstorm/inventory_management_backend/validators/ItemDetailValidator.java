@@ -1,6 +1,15 @@
 package com.skillstorm.inventory_management_backend.validators;
 
-public class ItemDetailsValidator {
+import com.skillstorm.inventory_management_backend.models.ItemDetail;
+
+public class ItemDetailValidator {
+
+    public static boolean validateItemDetails(ItemDetail itemDetails) {
+        return (hasThreeCharacters(itemDetails.getName()) && notEmptyString(itemDetails.getName()) &&
+                hasThreeCharacters(itemDetails.getDescription()) && notEmptyString(itemDetails.getDescription()) &&
+                notEmptyString(itemDetails.getSku()) && inputIsInteger("" + itemDetails.getShelfLife())
+                && greaterThanZero(itemDetails.getShelfLife()));
+    }
 
     public static boolean hasThreeCharacters(String input) {
         if (input.length() < 3) {
@@ -18,6 +27,9 @@ public class ItemDetailsValidator {
     }
 
     public static boolean inputIsInteger(String input) {
+        if (input == "") {
+            return true;
+        }
         try {
             Integer.parseInt(input);
             return true;
