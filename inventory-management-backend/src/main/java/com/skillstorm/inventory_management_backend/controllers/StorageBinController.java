@@ -48,8 +48,8 @@ public class StorageBinController {
             List<String> activeLocations = storageBinService.findAllActiveStorageBinLocationsInWarehouse(warehouse);
             StorageBinValidator.validateStorageBin(storageBin, activeLocations);
 
-            StorageBin returnedStorageBin = storageBinService.createStorageBin(storageBin);
-            return new ResponseEntity<>(returnedStorageBin, HttpStatus.CREATED);
+            StorageBin createdStorageBin = storageBinService.createStorageBin(storageBin);
+            return new ResponseEntity<>(createdStorageBin, HttpStatus.CREATED);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().header("message", e.getMessage()).build();
         }
@@ -58,6 +58,10 @@ public class StorageBinController {
     @PutMapping
     public ResponseEntity<StorageBin> updateStorageBin(@RequestBody StorageBin storageBin) {
         try {
+            Warehouse warehouse = warehouseService.findWarehouseById(storageBin.getWarehouse().getId());
+            List<String> activeLocations = storageBinService.findAllActiveStorageBinLocationsInWarehouse(warehouse);
+            StorageBinValidator.validateStorageBin(storageBin, activeLocations);
+
             StorageBin updatedStorageBin = storageBinService.saveStorageBin(storageBin);
             return new ResponseEntity<>(updatedStorageBin, HttpStatus.OK);
         } catch (Exception e) {
