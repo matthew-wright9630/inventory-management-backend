@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -39,6 +40,7 @@ public class LotNumber {
     private int quantity;
 
     @Column(name = "manufacture_date")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate manufactureDate;
 
     @ManyToOne

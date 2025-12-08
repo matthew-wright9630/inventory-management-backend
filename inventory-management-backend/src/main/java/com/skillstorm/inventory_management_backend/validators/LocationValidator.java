@@ -10,18 +10,23 @@ public class LocationValidator {
     }
 
     public static boolean hasThreeCharacters(String input) {
-        return input.length() >= 3;
+        if (input.length() < 3) {
+            throw new IllegalArgumentException("Input string cannot be less than 3 characters.");
+        }
+        return true;
     }
 
     public static boolean notEmptyString(String input) {
-        try {
-            return !input.isEmpty();
-        } catch (Exception e) {
-            throw e;
+        if (input == null) {
+            throw new IllegalArgumentException("Input string cannot be null.");
         }
+        return true;
     }
 
     public static boolean hasTwoCharacters(String input) {
-        return input.length() >= 2;
+        if (input.length() < 2) {
+            throw new IllegalArgumentException("Input string cannot be less than 3 characters.");
+        }
+        return true;
     }
 }

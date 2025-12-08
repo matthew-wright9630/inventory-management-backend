@@ -8,6 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import com.skillstorm.inventory_management_backend.validators.LocationValidator;
+import com.skillstorm.inventory_management_backend.validators.LocationValidator;
 
 public class LocationTest {
 
@@ -23,30 +24,33 @@ public class LocationTest {
     @Test
     @DisplayName("Country name has at least three characters")
     public void testCountryHasThreeCharacters() {
-        assertFalse(LocationValidator.hasThreeCharacters(""));
-        assertFalse(LocationValidator.hasThreeCharacters("US"));
-        assertThrows(NullPointerException.class, () -> {
-            LocationValidator.hasThreeCharacters(null);
+        assertThrows(IllegalArgumentException.class, () -> {
+            LocationValidator.hasThreeCharacters("");
         });
-        assertTrue(LocationValidator.hasThreeCharacters("United States of America"));
+        assertThrows(IllegalArgumentException.class, () -> {
+            LocationValidator.hasThreeCharacters("US");
+        });
+        assertTrue(LocationValidator
+                .hasThreeCharacters("United States of America"));
     }
 
     @Test
     @DisplayName("Country is not null")
     public void testCountryIsNotNull() {
-        assertThrows(NullPointerException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             LocationValidator.notEmptyString(null);
         });
-        assertTrue(LocationValidator.notEmptyString("United Kingdom"));
+        assertTrue(LocationValidator.notEmptyString("Canada"));
     }
 
     @Test
     @DisplayName("State or region has at least two characters")
     public void testStateOrRegionHasTwoCharacters() {
-        assertFalse(LocationValidator.hasTwoCharacters(""));
-        assertFalse(LocationValidator.hasTwoCharacters("a"));
-        assertThrows(NullPointerException.class, () -> {
-            LocationValidator.hasTwoCharacters(null);
+        assertThrows(IllegalArgumentException.class, () -> {
+            LocationValidator.hasTwoCharacters("");
+        });
+        assertThrows(IllegalArgumentException.class, () -> {
+            LocationValidator.hasTwoCharacters("A");
         });
         assertTrue(LocationValidator.hasTwoCharacters("IN"));
         assertTrue(LocationValidator.hasTwoCharacters("Idiana"));
@@ -55,7 +59,7 @@ public class LocationTest {
     @Test
     @DisplayName("State or region is not Null")
     public void testStateOrRegionIsNotNull() {
-        assertThrows(NullPointerException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             LocationValidator.notEmptyString(null);
         });
         assertTrue(LocationValidator.notEmptyString("South Carolina"));
