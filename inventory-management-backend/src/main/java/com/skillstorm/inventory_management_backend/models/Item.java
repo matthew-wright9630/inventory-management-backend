@@ -19,4 +19,8 @@ public class Item {
     @ManyToOne
     @JoinColumn(name = "item_detail_id")
     private ItemDetail itemDetail;
+
+    @ManyToOne
+    @JoinColumn(name = "lot_id")
+    private LotNumber lotNumber;
 }

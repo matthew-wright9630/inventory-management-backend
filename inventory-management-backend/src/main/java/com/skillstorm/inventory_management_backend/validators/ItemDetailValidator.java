@@ -22,7 +22,6 @@ public class ItemDetailValidator {
         if (input == null) {
             throw new IllegalArgumentException("Input string cannot be null.");
         }
-
         return true;
     }
 

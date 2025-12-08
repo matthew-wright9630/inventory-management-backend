@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.skillstorm.inventory_management_backend.models.ItemDetail;
 import com.skillstorm.inventory_management_backend.repositories.ItemDetailRepository;
+import com.skillstorm.inventory_management_backend.validators.ItemDetailValidator;
 
 @Service
 public class ItemDetailService {
@@ -31,7 +32,7 @@ public class ItemDetailService {
     }
 
     public ItemDetail createItemDetail(ItemDetail itemDetails) {
-
+        ItemDetailValidator.validateItemDetails(itemDetails);
         return itemDetailsRepository.save(itemDetails);
     }
 
