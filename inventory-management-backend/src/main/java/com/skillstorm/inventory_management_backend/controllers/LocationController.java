@@ -41,8 +41,9 @@ public class LocationController {
     @PostMapping
     public ResponseEntity<Location> createLocation(@RequestBody Location location) {
         try {
-            LocationValidator.validateLocation(location);
             return new ResponseEntity<>(locationService.saveLocation(location), HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().header("message", e.getMessage()).build();
         } catch (Exception e) {
             return ResponseEntity.internalServerError().header("message", e.getMessage()).build();
         }
@@ -62,9 +63,10 @@ public class LocationController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteLocation(@PathVariable int id) {
         try {
-            Location location = locationService.findLocationById(id);
-            locationService.deleteLocation(location);
+            locationService.deleteLocation(id);
             return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().header("message", e.getMessage()).build();
         } catch (Exception e) {
             return ResponseEntity.internalServerError().header("message", e.getMessage()).build();
         }

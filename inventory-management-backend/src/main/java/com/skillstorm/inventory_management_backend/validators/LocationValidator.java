@@ -5,8 +5,8 @@ import com.skillstorm.inventory_management_backend.models.Location;
 public class LocationValidator {
 
     public static boolean validateLocation(Location location) {
-        return (hasThreeCharacters(location.getCountry()) && notEmptyString(location.getCountry()) &&
-                hasTwoCharacters(location.getStateOrRegion()) && notEmptyString(location.getStateOrRegion()));
+        return (notEmptyString(location.getStateOrRegion()) && notEmptyString(location.getCountry()) &&
+                hasTwoCharacters(location.getStateOrRegion()) && hasThreeCharacters(location.getCountry()));
     }
 
     public static boolean hasThreeCharacters(String input) {
