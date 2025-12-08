@@ -23,22 +23,23 @@ public class ItemService {
     }
 
     public Item findItemById(int id) {
-        Optional<Item> ItemsBin = itemsRepository.findById(id);
+        Optional<Item> item = itemsRepository.findById(id);
 
-        if (ItemsBin.isPresent()) {
-            return ItemsBin.get();
+        if (item.isPresent()) {
+            return item.get();
         }
         return null;
     }
 
-    public Item createItem(Item items) {
-        ItemValidator.validateItem(items);
-        return itemsRepository.save(items);
+    public Item createItem(Item item) {
+        ItemValidator.validateItem(item);
+        return itemsRepository.save(item);
     }
 
-    public Item saveItem(Item items) {
-        itemsRepository.save(items);
-        return items;
+    public Item saveItem(Item item) {
+        ItemValidator.validateItem(item);
+        itemsRepository.save(item);
+        return item;
     }
 
     public Item deleteItem(Item item) {
