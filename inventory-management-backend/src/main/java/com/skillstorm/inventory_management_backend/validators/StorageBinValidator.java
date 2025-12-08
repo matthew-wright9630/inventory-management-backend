@@ -5,8 +5,6 @@ import java.util.List;
 import com.skillstorm.inventory_management_backend.models.StorageBin;
 import com.skillstorm.inventory_management_backend.models.Warehouse;
 
-import java.util.List;
-
 public class StorageBinValidator {
 
     public static boolean validateStorageBin(StorageBin storageBin, List<String> activeLocations) {

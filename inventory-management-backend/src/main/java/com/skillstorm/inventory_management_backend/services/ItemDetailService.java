@@ -17,11 +17,11 @@ public class ItemDetailService {
         this.itemDetailsRepository = itemDetailsRepository;
     }
 
-    public List<ItemDetail> findAllItemDetailss() {
+    public List<ItemDetail> findAllItemDetails() {
         return itemDetailsRepository.findAll();
     }
 
-    public ItemDetail findItemDetailsById(int id) {
+    public ItemDetail findItemDetailById(int id) {
         Optional<ItemDetail> ItemDetailsBin = itemDetailsRepository.findById(id);
 
         if (ItemDetailsBin.isPresent()) {
@@ -30,17 +30,17 @@ public class ItemDetailService {
         return null;
     }
 
-    public ItemDetail createItemDetails(ItemDetail itemDetails) {
+    public ItemDetail createItemDetail(ItemDetail itemDetails) {
 
         return itemDetailsRepository.save(itemDetails);
     }
 
-    public ItemDetail saveItemDetails(ItemDetail itemDetails) {
+    public ItemDetail saveItemDetail(ItemDetail itemDetails) {
         itemDetailsRepository.save(itemDetails);
         return itemDetails;
     }
 
-    public ItemDetail deleteItemDetails(ItemDetail itemDetails) {
+    public ItemDetail deleteItemDetail(ItemDetail itemDetails) {
         itemDetailsRepository.deleteItemDetails(itemDetails.getId(), false);
         return itemDetails;
     }

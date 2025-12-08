@@ -34,7 +34,7 @@ public class Warehouse {
     private String addressLineTwo;
 
     @Column(name = "is_active", insertable = false)
-    private boolean isActive;
+    private Boolean isActive;
 
     @ManyToOne
     @JoinColumn(name = "location_id")
@@ -118,11 +118,11 @@ public class Warehouse {
         this.location = location;
     }
 
-    public boolean isActive() {
+    public Boolean isActive() {
         return isActive;
     }
 
-    public void setActive(boolean isActive) {
+    public void setActive(Boolean isActive) {
         this.isActive = isActive;
     }
 

@@ -41,8 +41,12 @@ public class WarehouseValidator {
 
     public static boolean locationIsNotEmpty(Location location) {
         try {
-            return !location.isEmpty();
-
+            int locationId = location.getId();
+            if (locationId > 0) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (Exception e) {
             throw e;
         }

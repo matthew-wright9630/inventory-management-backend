@@ -28,7 +28,7 @@ public class Location {
     private String stateOrRegion;
 
     @Column(name = "is_active", insertable = false)
-    private boolean isActive;
+    private Boolean isActive = true;
 
     @OneToMany(targetEntity = Warehouse.class, mappedBy = "location")
     @JsonIgnore
@@ -84,18 +84,18 @@ public class Location {
         this.warehouses = warehouses;
     }
 
-    public boolean getIsActive() {
+    public Boolean getIsActive() {
         return isActive;
     }
 
-    public void setActive(boolean isActive) {
+    public void setActive(Boolean isActive) {
         this.isActive = isActive;
     }
 
-    public boolean isEmpty() {
-        System.out.println(id);
-        return (id <= 0);
-    }
+    // public boolean isEmpty() {
+    // System.out.println(id);
+    // return (id <= 0);
+    // }
 
     @Override
     public int hashCode() {

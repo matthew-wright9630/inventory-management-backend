@@ -28,27 +28,32 @@ public class ItemDetail {
     @Column
     private String description;
 
-    @Column(name = "shelf_life")
-    private int shelfLife = 9999;
+    @Column(name = "is_active")
+    private Boolean isActive = true;
 
-    @OneToMany(mappedBy = "item_details")
+    @Column(name = "shelf_life_days")
+    private Integer shelfLife = 9999;
+
+    @OneToMany(mappedBy = "itemDetail")
     @JsonIgnore
     private Set<Item> items;
 
     public ItemDetail() {
     }
 
-    public ItemDetail(String name, String sku, String description, int shelfLife) {
+    public ItemDetail(String name, String sku, String description, int shelfLife, boolean isActive) {
         this.name = name;
         this.sku = sku;
         this.description = description;
         this.shelfLife = shelfLife;
+        this.isActive = isActive;
     }
 
-    public ItemDetail(String name, String sku, String description) {
+    public ItemDetail(String name, String sku, String description, boolean isActive) {
         this.name = name;
         this.sku = sku;
         this.description = description;
+        this.isActive = isActive;
     }
 
     public int getId() {
@@ -91,11 +96,19 @@ public class ItemDetail {
         this.items = items;
     }
 
-    public int getShelfLife() {
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public Integer getShelfLife() {
         return shelfLife;
     }
 
-    public void setShelfLife(int shelfLife) {
+    public void setShelfLife(Integer shelfLife) {
         this.shelfLife = shelfLife;
     }
 
@@ -107,6 +120,7 @@ public class ItemDetail {
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((sku == null) ? 0 : sku.hashCode());
         result = prime * result + ((description == null) ? 0 : description.hashCode());
+        result = prime * result + (isActive ? 1231 : 1237);
         result = prime * result + shelfLife;
         result = prime * result + ((items == null) ? 0 : items.hashCode());
         return result;
@@ -138,6 +152,8 @@ public class ItemDetail {
                 return false;
         } else if (!description.equals(other.description))
             return false;
+        if (isActive != other.isActive)
+            return false;
         if (shelfLife != other.shelfLife)
             return false;
         if (items == null) {
@@ -150,7 +166,8 @@ public class ItemDetail {
 
     @Override
     public String toString() {
-        return "ItemDetails [id=" + id + ", name=" + name + ", sku=" + sku + ", description=" + description
-                + ", shelfLife=" + shelfLife + "]";
+        return "ItemDetail [id=" + id + ", name=" + name + ", sku=" + sku + ", description=" + description
+                + ", isActive=" + isActive + ", shelfLife=" + shelfLife + "]";
     }
+
 }

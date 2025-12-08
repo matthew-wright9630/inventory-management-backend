@@ -13,8 +13,8 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface ItemDetailRepository extends JpaRepository<ItemDetail, Integer> {
 
-    @Query("update ItemDetails iDetails set iDetails.isActive = :new_isActive where id = :item_deails_id")
+    @Query("update ItemDetail iDetail set iDetail.isActive = :new_isActive where id = :item_detail_id")
     @Modifying
     @Transactional
-    public int deleteItemDetails(@Param("item_details_id") int id, @Param("new_isActive") boolean active);
+    public int deleteItemDetails(@Param("item_detail_id") int id, @Param("new_isActive") boolean active);
 }

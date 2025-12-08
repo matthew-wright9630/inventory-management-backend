@@ -1,14 +1,11 @@
 package com.skillstorm.inventory_management_backend;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.hibernate.mapping.Set;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.skillstorm.inventory_management_backend.models.Item;
 import com.skillstorm.inventory_management_backend.models.ItemDetail;
 import com.skillstorm.inventory_management_backend.validators.ItemDetailValidator;
 
@@ -110,7 +107,7 @@ public class ItemDetailTest {
     @Test
     @DisplayName("Item Detail full validation")
     public void testItemDetail() {
-        ItemDetail itemDetail = new ItemDetail("Name", "14342-4c", "This is a test description");
+        ItemDetail itemDetail = new ItemDetail("Name", "14342-4c", "This is a test description", true);
         assertTrue(ItemDetailValidator.validateItemDetails(itemDetail));
     }
 }
