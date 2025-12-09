@@ -72,9 +72,14 @@ public class WarehouseController {
 
     @PutMapping
     public ResponseEntity<Warehouse> updateWarehouse(@RequestBody Warehouse warehouse,
-            @RequestParam(defaultValue = "0") int locationId) {
+            @RequestParam(required = false) Integer locationId) {
         try {
-            Warehouse updatedWarehouse = warehouseService.saveWarehouse(warehouse, locationId);
+            Warehouse updatedWarehouse;
+            if (locationId == null) {
+                updatedWarehouse = warehouseService.saveWarehouse(warehouse);
+            } else {
+                updatedWarehouse = warehouseService.saveWarehouse(warehouse, locationId);
+            }
             return new ResponseEntity<>(updatedWarehouse, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().header("message", e.getMessage()).build();

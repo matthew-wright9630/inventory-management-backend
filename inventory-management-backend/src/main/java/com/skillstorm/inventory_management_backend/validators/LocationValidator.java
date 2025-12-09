@@ -11,7 +11,7 @@ public class LocationValidator {
 
     public static boolean hasThreeCharacters(String input) {
         if (input.length() < 3) {
-            throw new IllegalArgumentException("Input string cannot be less than 3 characters.");
+            throw new IllegalArgumentException("Input: " + input + " cannot be less than 3 characters.");
         }
         return true;
     }

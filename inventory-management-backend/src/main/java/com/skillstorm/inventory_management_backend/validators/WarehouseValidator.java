@@ -9,32 +9,35 @@ public class WarehouseValidator {
         if (warehouse.getAddressLineTwo() != "") {
             // if addressLineTwo optional field is added, it should be at least 3 characters
             // long
-            return (hasThreeCharacters(warehouse.getAddressLineTwo()) && hasThreeCharacters(warehouse.getName())
-                    && notEmptyString(warehouse.getName())
-                    && hasThreeCharacters(warehouse.getAddress()) && notEmptyString(warehouse.getAddress())
+            return (notEmptyString(warehouse.getName()) && hasThreeCharacters(warehouse.getAddressLineTwo())
+                    && hasThreeCharacters(warehouse.getName())
+                    && notEmptyString(warehouse.getAddress())
+                    && hasThreeCharacters(warehouse.getAddress())
                     && inputIsInteger("" + warehouse.getMaximumCapacity())
                     && greaterThanZero(warehouse.getMaximumCapacity()) && locationIsNotEmpty(warehouse.getLocation())
-                    && hasThreeCharacters(warehouse.getAddress()) && notEmptyString(warehouse.getAddress()));
+                    && hasThreeCharacters(warehouse.getAddress()));
         }
         // if addressLineTwo optional field is not added, the validation should be
         // omitted.
-        return (hasThreeCharacters(warehouse.getName()) && notEmptyString(warehouse.getName())
-                && hasThreeCharacters(warehouse.getAddress()) && notEmptyString(warehouse.getAddress())
+        return (notEmptyString(warehouse.getAddress()) && notEmptyString(warehouse.getName())
+                && hasThreeCharacters(warehouse.getAddress()) && hasThreeCharacters(warehouse.getName())
                 && inputIsInteger("" + warehouse.getMaximumCapacity())
                 && greaterThanZero(warehouse.getMaximumCapacity()) && locationIsNotEmpty(warehouse.getLocation())
-                && hasThreeCharacters(warehouse.getAddress()) && notEmptyString(warehouse.getAddress()));
+                && hasThreeCharacters(warehouse.getAddress()));
     }
 
     public static boolean hasThreeCharacters(String input) {
-        return input.length() >= 3;
+        if (input.length() < 3) {
+            throw new IllegalArgumentException("Input: " + input + " cannot be less than 3 characters.");
+        }
+        return true;
     }
 
     public static boolean notEmptyString(String input) {
-        try {
-            return !input.isEmpty();
-        } catch (Exception e) {
-            throw e;
+        if (input == null) {
+            throw new IllegalArgumentException("Input string cannot be null.");
         }
+        return true;
     }
 
     public static boolean inputIsInteger(String input) {
@@ -42,12 +45,15 @@ public class WarehouseValidator {
             Integer.parseInt(input);
             return true;
         } catch (Exception e) {
-            throw e;
+            throw new IllegalArgumentException("Input: " + input + " must be an integer");
         }
     }
 
     public static boolean greaterThanZero(int input) {
-        return input > 0;
+        if (input <= 0) {
+            throw new IllegalArgumentException("Input: " + input + " must be larger than 0");
+        }
+        return true;
     }
 
     public static boolean locationIsNotEmpty(Location location) {
@@ -58,6 +64,8 @@ public class WarehouseValidator {
             } else {
                 return false;
             }
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Location is required to add to a warehouse.");
         } catch (Exception e) {
             throw e;
         }

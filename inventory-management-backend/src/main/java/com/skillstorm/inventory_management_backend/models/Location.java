@@ -37,18 +37,9 @@ public class Location {
     public Location() {
     }
 
-    public Location(int id, String country, String stateOrRegion, boolean isActive, Set<Warehouse> warehouses) {
-        this.id = id;
+    public Location(String country, String stateOrRegion, boolean isActive) {
         this.country = country;
         this.stateOrRegion = stateOrRegion;
-        this.warehouses = warehouses;
-        this.isActive = isActive;
-    }
-
-    public Location(String country, String stateOrRegion, boolean isActive, Set<Warehouse> warehouses) {
-        this.country = country;
-        this.stateOrRegion = stateOrRegion;
-        this.warehouses = warehouses;
         this.isActive = isActive;
     }
 
