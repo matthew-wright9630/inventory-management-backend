@@ -3,8 +3,17 @@ package com.skillstorm.inventory_management_backend.validators;
 import java.time.LocalDate;
 
 import com.skillstorm.inventory_management_backend.models.Item;
+import com.skillstorm.inventory_management_backend.models.LotNumber;
 
 public class LotNumberValidator {
+
+    public static boolean validateLotNumber(LotNumber lotNumber) {
+        return (notEmptyString(lotNumber.getManufactureDate().toString())
+                && verifyDateFormat(lotNumber.getManufactureDate().toString())
+                && inputIsInteger("" + lotNumber.getQuantity())
+                && greaterThanOrEqualToZero(lotNumber.getQuantity())
+                && itemIsNotEmpty(lotNumber.getItem()));
+    }
 
     public static boolean notEmptyString(String input) {
         if (input == null) {
@@ -25,7 +34,7 @@ public class LotNumberValidator {
         }
     }
 
-    public static boolean greaterThanZero(int input) {
+    public static boolean greaterThanOrEqualToZero(int input) {
         if (input <= 0) {
             throw new IllegalArgumentException("Input must be larger than 0: " + input);
         }

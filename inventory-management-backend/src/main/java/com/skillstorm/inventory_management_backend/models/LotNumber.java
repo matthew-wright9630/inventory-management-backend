@@ -54,14 +54,10 @@ public class LotNumber {
     public LotNumber() {
     }
 
-    public LotNumber(LocalDate dateAdded, Boolean isActive, int quantity, LocalDate manufactureDate, Item item,
-            Set<WarehouseLots> warehouseLots) {
-        this.dateAdded = dateAdded;
-        this.isActive = isActive;
+    public LotNumber(int quantity, LocalDate manufactureDate, Item item) {
         this.quantity = quantity;
         this.manufactureDate = manufactureDate;
         this.item = item;
-        this.warehouseLots = warehouseLots;
     }
 
     public int getId() {
@@ -74,10 +70,6 @@ public class LotNumber {
 
     public LocalDate getDateAdded() {
         return dateAdded;
-    }
-
-    public void setDateAdded(LocalDate dateAdded) {
-        this.dateAdded = dateAdded;
     }
 
     public Boolean getIsActive() {

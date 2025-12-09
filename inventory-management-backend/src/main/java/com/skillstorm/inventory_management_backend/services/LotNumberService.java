@@ -5,15 +5,19 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.skillstorm.inventory_management_backend.models.Item;
 import com.skillstorm.inventory_management_backend.models.LotNumber;
 import com.skillstorm.inventory_management_backend.repositories.LotNumberRepository;
+import com.skillstorm.inventory_management_backend.validators.LotNumberValidator;
 
 @Service
 public class LotNumberService {
     private final LotNumberRepository lotNumbersRepository;
+    private final ItemService itemService;
 
-    public LotNumberService(LotNumberRepository lotNumbersRepository) {
+    public LotNumberService(LotNumberRepository lotNumbersRepository, ItemService itemService) {
         this.lotNumbersRepository = lotNumbersRepository;
+        this.itemService = itemService;
     }
 
     public List<LotNumber> findAllLotNumbers() {
@@ -21,26 +25,36 @@ public class LotNumberService {
     }
 
     public LotNumber findLotNumberById(int id) {
-        Optional<LotNumber> LotNumbersBin = lotNumbersRepository.findById(id);
+        Optional<LotNumber> LotNumber = lotNumbersRepository.findById(id);
 
-        if (LotNumbersBin.isPresent()) {
-            return LotNumbersBin.get();
+        if (LotNumber.isPresent()) {
+            return LotNumber.get();
         }
-        return null;
+        throw new IllegalArgumentException("Lot number does not exist. Please try with another lot number.");
     }
 
-    public LotNumber createLotNumber(LotNumber lotNumbers) {
-
-        return lotNumbersRepository.save(lotNumbers);
+    public LotNumber createLotNumber(LotNumber lotNumber, int itemId) {
+        Item item = itemService.findItemById(itemId);
+        lotNumber.setItem(item);
+        if (LotNumberValidator.validateLotNumber(lotNumber)) {
+            return lotNumbersRepository.save(lotNumber);
+        }
+        throw new IllegalArgumentException("Lot Number not able to be created");
     }
 
-    public LotNumber saveLotNumber(LotNumber lotNumbers) {
-        lotNumbersRepository.save(lotNumbers);
-        return lotNumbers;
+    public LotNumber saveLotNumber(LotNumber lotNumber, int itemId) {
+        if (itemId != 0) {
+            Item item = itemService.findItemById(itemId);
+            lotNumber.setItem(item);
+        }
+        findLotNumberById(lotNumber.getId());
+        lotNumbersRepository.save(lotNumber);
+        return lotNumber;
     }
 
-    public LotNumber deleteLotNumber(LotNumber lotNumbers) {
-        lotNumbersRepository.deleteLotNumber(lotNumbers.getId(), false);
-        return lotNumbers;
+    public LotNumber deleteLotNumber(int id) {
+        LotNumber lotNumberToDelete = findLotNumberById(id);
+        lotNumbersRepository.deleteLotNumber(id, false);
+        return lotNumberToDelete;
     }
 }

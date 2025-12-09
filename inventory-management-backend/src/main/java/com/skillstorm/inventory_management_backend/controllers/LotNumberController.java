@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skillstorm.inventory_management_backend.models.LotNumber;
@@ -37,18 +38,19 @@ public class LotNumberController {
     }
 
     @PostMapping
-    public ResponseEntity<LotNumber> createLotNumber(@RequestBody LotNumber lotNumber) {
+    public ResponseEntity<LotNumber> createLotNumber(@RequestBody LotNumber lotNumber, @RequestParam int itemId) {
         try {
-            return new ResponseEntity<>(lotNumberService.saveLotNumber(lotNumber), HttpStatus.CREATED);
+            return new ResponseEntity<>(lotNumberService.createLotNumber(lotNumber, itemId), HttpStatus.CREATED);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().header("message", e.getMessage()).build();
         }
     }
 
     @PutMapping
-    public ResponseEntity<LotNumber> updateLotNumber(@RequestBody LotNumber lotNumber) {
+    public ResponseEntity<LotNumber> updateLotNumber(@RequestBody LotNumber lotNumber,
+            @RequestParam(defaultValue = "0") int itemId) {
         try {
-            LotNumber newLotNumber = lotNumberService.saveLotNumber(lotNumber);
+            LotNumber newLotNumber = lotNumberService.saveLotNumber(lotNumber, itemId);
             return new ResponseEntity<LotNumber>(newLotNumber, HttpStatus.OK);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().header("message",
@@ -59,8 +61,7 @@ public class LotNumberController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteLotNumber(@PathVariable int id) {
         try {
-            LotNumber lotNumber = lotNumberService.findLotNumberById(id);
-            lotNumberService.deleteLotNumber(lotNumber);
+            lotNumberService.deleteLotNumber(id);
             return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().header("message", e.getMessage()).build();

@@ -40,12 +40,12 @@ public class LotNumberTest {
     @DisplayName("Quantity is greater than zero")
     public void testQuantityIsGreaterThanZero() {
         assertThrows(IllegalArgumentException.class, () -> {
-            LotNumberValidator.greaterThanZero(0);
+            LotNumberValidator.greaterThanOrEqualToZero(0);
         });
         assertThrows(IllegalArgumentException.class, () -> {
-            LotNumberValidator.greaterThanZero(-100);
+            LotNumberValidator.greaterThanOrEqualToZero(-100);
         });
-        assertTrue(LotNumberValidator.greaterThanZero(1000));
+        assertTrue(LotNumberValidator.greaterThanOrEqualToZero(1000));
     }
 
     @Test
