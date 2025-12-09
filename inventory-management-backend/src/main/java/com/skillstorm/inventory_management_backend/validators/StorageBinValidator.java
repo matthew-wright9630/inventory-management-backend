@@ -8,21 +8,16 @@ import com.skillstorm.inventory_management_backend.models.Warehouse;
 public class StorageBinValidator {
 
     public static boolean validateStorageBin(StorageBin storageBin, List<String> activeLocations) {
-        return (notEmptyString(storageBin.getStorageLocation()) && hasTwoCharacters(storageBin.getStorageLocation())
+        return (notEmptyString(storageBin.getStorageLocation())
                 && warehouseIsNotEmpty(storageBin.getWarehouse())
                 && storageBinLocationIsUnique(activeLocations, storageBin));
     }
 
     public static boolean notEmptyString(String input) {
-        try {
-            return !input.isEmpty();
-        } catch (Exception e) {
-            throw e;
+        if (input == null) {
+            throw new IllegalArgumentException("Input string cannot be null.");
         }
-    }
-
-    public static boolean hasTwoCharacters(String input) {
-        return input.length() >= 2;
+        return true;
     }
 
     public static boolean warehouseIsNotEmpty(Warehouse warehouse) {
@@ -33,6 +28,8 @@ public class StorageBinValidator {
             } else {
                 return false;
             }
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Warehouse is required to add to a storage bin.");
         } catch (Exception e) {
             throw e;
         }
@@ -43,7 +40,8 @@ public class StorageBinValidator {
         try {
             for (String s : storageLocationArray) {
                 if (s.equals(newStorageLocation)) {
-                    return false;
+                    throw new IllegalArgumentException(
+                            "There is already a storage bin at this location. Please select a different location.");
                 }
             }
             return true;

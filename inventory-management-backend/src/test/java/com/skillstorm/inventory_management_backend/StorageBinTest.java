@@ -20,7 +20,6 @@ public class StorageBinTest {
      * Storage bin must include a warehouse
      * Storage bin must include a storage location in the warehouse
      * - Storage warehouse cannot be empty
-     * - Storage warehouse must include at least 2 characters
      * A storage bin cannot share a storage location with another active storage bin
      */
 
@@ -39,22 +38,10 @@ public class StorageBinTest {
     @Test
     @DisplayName("Storage bin location is not empty")
     public void testStorageBinLocationIsNotEmpty() {
-        assertThrows(NullPointerException.class, () -> {
-            StorageBinValidator.warehouseIsNotEmpty(null);
+        assertThrows(IllegalArgumentException.class, () -> {
+            StorageBinValidator.notEmptyString(null);
         });
         assertTrue(StorageBinValidator.notEmptyString("1234 Test Rd"));
-    }
-
-    @Test
-    @DisplayName("Storage bin location has at least two characters")
-    public void testStorageBinLocationHasTwoCharacters() {
-        assertFalse(StorageBinValidator.hasTwoCharacters(""));
-        assertFalse(StorageBinValidator.hasTwoCharacters("a"));
-        assertThrows(NullPointerException.class, () -> {
-            StorageBinValidator.hasTwoCharacters(null);
-        });
-        assertTrue(StorageBinValidator.hasTwoCharacters("1A"));
-        assertTrue(StorageBinValidator.hasTwoCharacters("X542-434-2B"));
     }
 
     @Test
@@ -69,8 +56,12 @@ public class StorageBinTest {
         storageBin2.setStorageLocation("1A");
         StorageBin storageBin3 = new StorageBin();
         storageBin3.setStorageLocation("1C");
-        assertFalse(StorageBinValidator.storageBinLocationIsUnique(locations, storageBin1));
-        assertFalse(StorageBinValidator.storageBinLocationIsUnique(locations, storageBin2));
+        assertThrows(IllegalArgumentException.class, () -> {
+            StorageBinValidator.storageBinLocationIsUnique(locations, storageBin1);
+        });
+        assertThrows(IllegalArgumentException.class, () -> {
+            StorageBinValidator.storageBinLocationIsUnique(locations, storageBin2);
+        });
         assertTrue(StorageBinValidator.storageBinLocationIsUnique(locations, storageBin3));
     }
 }
