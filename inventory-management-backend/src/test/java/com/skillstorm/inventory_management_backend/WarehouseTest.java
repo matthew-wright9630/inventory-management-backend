@@ -33,15 +33,19 @@ public class WarehouseTest {
     @Test
     @DisplayName("Name has at least three characters")
     public void testNameHasThreeCharacters() {
-        assertFalse(WarehouseValidator.hasThreeCharacters(""));
-        assertFalse(WarehouseValidator.hasThreeCharacters("Hi"));
+        assertThrows(IllegalArgumentException.class, () -> {
+            WarehouseValidator.hasThreeCharacters("");
+        });
+        assertThrows(IllegalArgumentException.class, () -> {
+            WarehouseValidator.hasThreeCharacters("US");
+        });
         assertTrue(WarehouseValidator.notEmptyString("Warehouse 1"));
     }
 
     @Test
     @DisplayName("Name is not null")
     public void testNameIsNotNull() {
-        assertThrows(NullPointerException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             WarehouseValidator.notEmptyString(null);
         });
         assertTrue(WarehouseValidator.notEmptyString("Warehouse 1"));
@@ -50,10 +54,11 @@ public class WarehouseTest {
     @Test
     @DisplayName("Address has at least three characters")
     public void testAddressHasThreeCharacters() {
-        assertFalse(WarehouseValidator.hasThreeCharacters(""));
-        assertFalse(WarehouseValidator.hasThreeCharacters("aa"));
-        assertThrows(NullPointerException.class, () -> {
-            WarehouseValidator.hasThreeCharacters(null);
+        assertThrows(IllegalArgumentException.class, () -> {
+            WarehouseValidator.hasThreeCharacters("");
+        });
+        assertThrows(IllegalArgumentException.class, () -> {
+            WarehouseValidator.hasThreeCharacters("TT");
         });
         assertTrue(WarehouseValidator.hasThreeCharacters("987 Testing Ave."));
     }
@@ -61,7 +66,7 @@ public class WarehouseTest {
     @Test
     @DisplayName("Address is not Null")
     public void testAddressIsNotNull() {
-        assertThrows(NullPointerException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             WarehouseValidator.notEmptyString(null);
         });
         assertTrue(WarehouseValidator.notEmptyString("1234 Test Rd"));
@@ -70,10 +75,11 @@ public class WarehouseTest {
     @Test
     @DisplayName("Address Line Two has at least three characters")
     public void testAddressLineTwoHasThreeCharacters() {
-        assertFalse(WarehouseValidator.hasThreeCharacters(""));
-        assertFalse(WarehouseValidator.hasThreeCharacters("aa"));
-        assertThrows(NullPointerException.class, () -> {
-            WarehouseValidator.hasThreeCharacters(null);
+        assertThrows(IllegalArgumentException.class, () -> {
+            WarehouseValidator.hasThreeCharacters("");
+        });
+        assertThrows(IllegalArgumentException.class, () -> {
+            WarehouseValidator.hasThreeCharacters("aa");
         });
         assertTrue(WarehouseValidator.hasThreeCharacters("987 Testing Ave."));
     }
@@ -81,7 +87,7 @@ public class WarehouseTest {
     @Test
     @DisplayName("Address Line Two is not Null")
     public void testAddressLineTwoIsNotNull() {
-        assertThrows(NullPointerException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             WarehouseValidator.notEmptyString(null);
         });
         assertTrue(WarehouseValidator.notEmptyString("1234 Test Rd"));
@@ -90,7 +96,7 @@ public class WarehouseTest {
     @Test
     @DisplayName("Max Capacity is an integer")
     public void testMaxCapacityIsInteger() {
-        assertThrows(NumberFormatException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             WarehouseValidator.inputIsInteger("Test");
         });
         assertThrows(IllegalArgumentException.class, () -> {
@@ -105,16 +111,20 @@ public class WarehouseTest {
     @Test
     @DisplayName("Maximum Capacity is greater than zero")
     public void testMaxCapacityIsGreaterThanZero() {
-        assertFalse(WarehouseValidator.greaterThanZero(0));
-        assertFalse(WarehouseValidator.greaterThanZero(-100));
+        assertThrows(IllegalArgumentException.class, () -> {
+            WarehouseValidator.greaterThanZero(0);
+        });
+        assertThrows(IllegalArgumentException.class, () -> {
+            WarehouseValidator.greaterThanZero(-100);
+        });
         assertTrue(WarehouseValidator.greaterThanZero(1000));
     }
 
     @Test
     @DisplayName("Location is not empty")
     public void testLocationIsNotEmpty() {
-        assertThrows(NullPointerException.class, () -> {
-            WarehouseValidator.locationIsNotEmpty(null);
+        assertThrows(IllegalArgumentException.class, () -> {
+            WarehouseValidator.notEmptyString(null);
         });
         Location location = new Location();
         assertFalse(WarehouseValidator.locationIsNotEmpty(location));

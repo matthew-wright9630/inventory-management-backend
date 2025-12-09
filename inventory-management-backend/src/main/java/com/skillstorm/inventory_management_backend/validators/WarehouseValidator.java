@@ -50,10 +50,10 @@ public class WarehouseValidator {
     }
 
     public static boolean greaterThanZero(int input) {
-        if (input <= 0) {
-            throw new IllegalArgumentException("Input: " + input + " must be larger than 0");
+        if (input > 0) {
+            return true;
         }
-        return true;
+        throw new IllegalArgumentException("Input: " + input + " must be larger than 0");
     }
 
     public static boolean locationIsNotEmpty(Location location) {
