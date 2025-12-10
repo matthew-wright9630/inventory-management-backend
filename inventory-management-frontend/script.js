@@ -22,12 +22,21 @@ function addWarehouseToList(newWarehouse, activeStorageBins) {
     let capacityEl = document.createElement("p");
     let maxCapacityEl = document.createElement("p");
 
+    warehouseDiv.classList.add("col-6", "border", "rounded");
     titleEl.innerText = newWarehouse.name;
-    addressEl.innerText = `${newWarehouse.address} ${newWarehouse.addressLineTwo}, ${newWarehouse.location.stateOrRegion}, ${newWarehouse.location.country}`;
-    maxCapacityEl.innerText = newWarehouse.maximumCapacity;
-    capacityEl = activeStorageBins.length();
+    addressEl.innerText = `${newWarehouse.address} ${
+        newWarehouse.addressLineTwo
+    }, ${newWarehouse.location.stateOrRegion || ""}, ${
+        newWarehouse.location.country
+    }`;
+    maxCapacityEl.innerText =
+        "Maximum capacity: " + newWarehouse.maximumCapacity;
+    capacityEl.innerText = "Current capacity: " + activeStorageBins.length;
 
     warehouseDiv.appendChild(titleEl);
+    warehouseDiv.appendChild(addressEl);
+    warehouseDiv.appendChild(capacityEl);
+    warehouseDiv.appendChild(maxCapacityEl);
 
     document.getElementById("warehouse-list").appendChild(warehouseDiv);
 }
