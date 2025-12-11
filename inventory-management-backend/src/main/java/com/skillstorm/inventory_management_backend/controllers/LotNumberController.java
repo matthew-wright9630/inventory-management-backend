@@ -37,6 +37,16 @@ public class LotNumberController {
         }
     }
 
+    @GetMapping("/item/{itemId}")
+    public ResponseEntity<LotNumber> getQuantityOfItem(@PathVariable int itemId) {
+        try {
+            LotNumber lotNumber = lotNumberService.findLotByItemId(itemId);
+            return new ResponseEntity<>(lotNumber, HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().header("message", e.getMessage()).build();
+        }
+    }
+
     @PostMapping
     public ResponseEntity<LotNumber> createLotNumber(@RequestBody LotNumber lotNumber, @RequestParam int itemId) {
         try {

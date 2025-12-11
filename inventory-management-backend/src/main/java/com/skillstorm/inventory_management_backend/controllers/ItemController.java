@@ -39,6 +39,18 @@ public class ItemController {
         }
     }
 
+    @GetMapping("/storage-bin/{storageBinId}")
+    public ResponseEntity<List<Item>> findAllItemsByStorageBin(@PathVariable int storageBinId) {
+        try {
+            List<Item> items = itemService.findItemsByStorageBin(storageBinId);
+            return new ResponseEntity<>(items, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().header("message", e.getMessage()).build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().header("message", e.getMessage()).build();
+        }
+    }
+
     @PostMapping
     public ResponseEntity<Item> createItem(@RequestBody Item item, @RequestParam int storageBinId,
             @RequestParam int itemDetailId) {

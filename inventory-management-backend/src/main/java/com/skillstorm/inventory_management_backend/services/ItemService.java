@@ -39,6 +39,11 @@ public class ItemService {
         throw new IllegalArgumentException("Item does not exist. Please try with another item.");
     }
 
+    public List<Item> findItemsByStorageBin(int storageBinId) {
+        StorageBin storageBin = storageBinService.findStorageBinById(storageBinId);
+        return itemsRepository.findAllByStorageBin(storageBin);
+    }
+
     public Item createItem(Item item, int storageBinId, int itemDetailId) {
         StorageBin storageBin = storageBinService.findStorageBinById(storageBinId);
         ItemDetail itemDetail = itemDetailService.findItemDetailById(itemDetailId);

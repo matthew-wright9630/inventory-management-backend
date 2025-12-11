@@ -13,6 +13,8 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface ItemDetailRepository extends JpaRepository<ItemDetail, Integer> {
 
+    public ItemDetail findByName(String name);
+
     @Query("update ItemDetail iDetail set iDetail.isActive = :new_isActive where id = :item_detail_id")
     @Modifying
     @Transactional

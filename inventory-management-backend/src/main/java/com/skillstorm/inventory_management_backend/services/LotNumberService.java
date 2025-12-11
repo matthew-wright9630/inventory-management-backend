@@ -33,6 +33,11 @@ public class LotNumberService {
         throw new IllegalArgumentException("Lot number does not exist. Please try with another lot number.");
     }
 
+    public LotNumber findLotByItemId(int itemId) {
+        LotNumber lotNumber = lotNumbersRepository.findByItemId(itemId);
+        return lotNumber;
+    }
+
     public LotNumber createLotNumber(LotNumber lotNumber, int itemId) {
         Item item = itemService.findItemById(itemId);
         lotNumber.setItem(item);

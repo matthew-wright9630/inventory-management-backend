@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skillstorm.inventory_management_backend.models.Item;
 import com.skillstorm.inventory_management_backend.models.ItemDetail;
 import com.skillstorm.inventory_management_backend.services.ItemDetailService;
 
@@ -31,6 +33,18 @@ public class ItemDetailController {
         try {
             List<ItemDetail> itemDetails = itemDetailService.findAllItemDetails();
             return new ResponseEntity<>(itemDetails, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().header("message", e.getMessage()).build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().header("message", e.getMessage()).build();
+        }
+    }
+
+    @GetMapping("/item/")
+    public ResponseEntity<ItemDetail> findItemsByName(@RequestParam(defaultValue = "") String itemName) {
+        try {
+            ItemDetail itemDetail = itemDetailService.findItemDetailByName(itemName);
+            return new ResponseEntity<>(itemDetail, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().header("message", e.getMessage()).build();
         } catch (Exception e) {
