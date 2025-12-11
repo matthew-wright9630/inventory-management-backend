@@ -42,7 +42,10 @@ public class ItemService {
     public List<Item> findItemsByStorageBin(int storageBinId) {
         StorageBin storageBin = storageBinService.findStorageBinById(storageBinId);
         return itemsRepository.findAllByStorageBin(storageBin);
+    }
 
+    public ItemDetail findItemByName(String name) {
+        return itemDetailService.findItemDetailByName(name);
     }
 
     public Item createItem(Item item, int storageBinId, int itemDetailId) {

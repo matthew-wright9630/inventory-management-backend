@@ -33,6 +33,18 @@ public class LotNumberService {
         throw new IllegalArgumentException("Lot number does not exist. Please try with another lot number.");
     }
 
+    public int findLotNumberByItemId(int itemId) {
+    List<LotNumber> lotNumbers = lotNumbersRepository.findAllByItemId(itemId);
+    if (lotNumbers.isEmpty()) {
+    return 0;
+    }
+    int sumOfQuantites = 0;
+    for (LotNumber lot : lotNumbers) {
+    sumOfQuantites += lot.getQuantity();
+    }
+    return sumOfQuantites;
+    }
+
     public LotNumber createLotNumber(LotNumber lotNumber, int itemId) {
         Item item = itemService.findItemById(itemId);
         lotNumber.setItem(item);

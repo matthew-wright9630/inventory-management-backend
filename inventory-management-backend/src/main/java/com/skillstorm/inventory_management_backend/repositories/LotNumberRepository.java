@@ -1,5 +1,7 @@
 package com.skillstorm.inventory_management_backend.repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,6 +14,8 @@ import jakarta.transaction.Transactional;
 
 @Repository
 public interface LotNumberRepository extends JpaRepository<LotNumber, Integer> {
+
+    public List<LotNumber> findAllByItemId(int itemId);
 
     @Query("update LotNumber lot set lot.isActive = :new_isActive where id = :lot_number_id")
     @Modifying

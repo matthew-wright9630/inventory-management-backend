@@ -31,6 +31,10 @@ public class ItemDetailService {
         throw new IllegalArgumentException("Item Details does not exist. Please try with another item detail.");
     }
 
+    public ItemDetail findItemDetailByName(String name) {
+        return itemDetailsRepository.findByName(name);
+    }
+
     public ItemDetail createItemDetail(ItemDetail itemDetail) {
         if (ItemDetailValidator.validateItemDetails(itemDetail)) {
             return itemDetailsRepository.save(itemDetail);
