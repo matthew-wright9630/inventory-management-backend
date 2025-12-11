@@ -8,11 +8,13 @@ import com.skillstorm.inventory_management_backend.services.ItemQuantityViewServ
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/item-quantity")
+@CrossOrigin({ "http://127.0.0.1:5500/" })
 public class ItemQuantityViewController {
 
     private final ItemQuantityViewService itemQuantityViewService;
