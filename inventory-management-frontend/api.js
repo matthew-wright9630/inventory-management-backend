@@ -78,6 +78,23 @@ function getItemsByItemName(itemName) {
         });
 }
 
+function getItemsByStorageId(storageId) {
+    return fetch(`${URL}/items/storage-bin/${storageId}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then((res) => res.text())
+        .then((text) => {
+            if (!text) return [];
+            return JSON.parse(text);
+        })
+        .catch((err) => {
+            console.error(err);
+        });
+}
+
 function getAllLotNumbersByItemId(itemId) {
     return fetch(URL + "/lot-numbers/item/" + itemId, {
         method: "GET",
@@ -111,6 +128,22 @@ function getQuantityOfItemId(itemId) {
         });
 }
 
+function getItemDetailById(itemId) {
+    return fetch(`${URL}/item-details/${itemId}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then((res) => {
+            if (res.status === 204) return [];
+            return res.json();
+        })
+        .catch((err) => {
+            console.error(err);
+        });
+}
+
 export {
     getAllWarehouses,
     getActiveStorageBinsInWarehouse,
@@ -119,4 +152,5 @@ export {
     getAllLotNumbersByItemId,
     getQuantityOfItemId,
     getItemsByItemName,
+    getItemsByStorageId,
 };

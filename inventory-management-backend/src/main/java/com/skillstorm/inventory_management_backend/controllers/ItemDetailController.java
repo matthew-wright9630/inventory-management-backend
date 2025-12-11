@@ -41,6 +41,18 @@ public class ItemDetailController {
         }
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ItemDetail> findItemDetailById(@PathVariable int id) {
+        try {
+            ItemDetail itemDetails = itemDetailService.findItemDetailById(id);
+            return new ResponseEntity<>(itemDetails, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().header("message", e.getMessage()).build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().header("message", e.getMessage()).build();
+        }
+    }
+
     @GetMapping("/item/")
     public ResponseEntity<ItemDetail> findItemsByName(@RequestParam(defaultValue = "") String itemName) {
         try {

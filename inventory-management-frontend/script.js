@@ -6,6 +6,7 @@ import {
     getAllLotNumbersByItemId,
     getQuantityOfItemId,
     getItemsByItemName,
+    getItemsByStorageId,
 } from "./api.js";
 
 let listOfItems = [];
@@ -51,7 +52,6 @@ function addWarehouseToList(newWarehouse, activeStorageBins) {
     maxCapacityEl.innerText =
         "Maximum capacity: " + newWarehouse.maximumCapacity;
     capacityEl.innerText = "Current capacity: " + activeStorageBins.length;
-    console.log(newWarehouse.active);
     if (newWarehouse.active) {
         isActiveEl.innerText = "Warehouse is active";
     } else {
@@ -87,7 +87,6 @@ export function getItemInformation() {
 }
 
 function addItemDetailsToList(itemDetail, itemQuantityObject) {
-    console.log(itemDetail, itemQuantityObject);
     let itemDiv = document.createElement("div");
     let titleEl = document.createElement("h2");
     let skuEl = document.createElement("p");
@@ -126,10 +125,56 @@ function addItemDetailsToList(itemDetail, itemQuantityObject) {
         });
 }
 
-function addActiveStorageBins(warehouseId) {
-    getActiveStorageBinsInWarehouse(warehouse.id).then((activeStorageBins) => {
-        addWarehouseToList(warehouse, activeStorageBins);
+export function addActiveStorageBins(warehouseId) {
+    getActiveStorageBinsInWarehouse(warehouseId).then((activeStorageBins) => {
+        activeStorageBins.map((storageBin) => {
+            getItemsByStorageId(storageBin.id).then((item) => {
+                if (item.length > 0) {
+                    getAllLotNumbersByItemId(item[0].id).then((lotNumber) => {
+                        addItemToList(storageBin, item[0], lotNumber);
+                    });
+                }
+            });
+        });
     });
+}
+
+function addItemToList(storageBin, item, lotNumber) {
+    let itemDiv = document.createElement("div");
+    let titleEl = document.createElement("h2");
+    let skuEl = document.createElement("p");
+    let descriptionEl = document.createElement("p");
+    let shelfLifeEl = document.createElement("p");
+    let quantityEl = document.createElement("p");
+    let storageLocationEl = document.createElement("p");
+
+    itemDiv.id = `storage-location-${item.id}`;
+    titleEl.innerText = item.itemDetail.name;
+    skuEl.innerText = "SKU #: " + item.itemDetail.sku;
+    descriptionEl.innerText = "Description: " + item.itemDetail.description;
+    shelfLifeEl.innerText = "Shelf Life: " + item.itemDetail.shelfLife;
+    quantityEl.innerText = "Quantity of item in network: " + lotNumber.quantity;
+    storageLocationEl.innerText = storageBin.storageLocation;
+
+    itemDiv.appendChild(titleEl);
+    itemDiv.appendChild(skuEl);
+    itemDiv.appendChild(descriptionEl);
+    itemDiv.appendChild(shelfLifeEl);
+    itemDiv.appendChild(quantityEl);
+    itemDiv.appendChild(storageLocationEl);
+
+    console.log(itemDiv);
+
+    itemDiv.classList.add(
+        "container-fluid",
+        "col-4",
+        "border",
+        "rounded",
+        "card",
+        "bg-primary"
+    );
+
+    document.getElementById("storage-location-list").appendChild(itemDiv);
 }
 
 document.getElementById("search-btn").addEventListener("click", () => {
