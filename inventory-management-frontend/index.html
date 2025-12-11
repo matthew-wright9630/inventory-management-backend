@@ -7,7 +7,6 @@
 
         <meta name="keywords" content="HTML, CSS" />
         <meta name="description" content="Learning HTML and CSS" />
-        <link rel="stylesheet" href="style.css" />
 
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
@@ -15,6 +14,8 @@
             integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
             crossorigin="anonymous"
         />
+
+        <link rel="stylesheet" href="style.css" />
 
         <script type="module" src="script.js" defer></script>
         <script type="module" src="router.js" defer></script>
@@ -47,6 +48,8 @@
                     </button>
                 </form>
             </nav>
+            <button id="warehouse-create-btn">Create Warehouse</button>
+            <button id="item-create-btn">Create Item</button>
         </header>
         <section>
             <div id="section-container" class="container text-center">
@@ -62,6 +65,107 @@
                         No items were found. Please update the search or add
                         item(s).
                     </p>
+                </div>
+            </div>
+            <div>
+                <div id="form-list" class="custom-form d-none">
+                    <button type="button" id="close-btn" class="close-btn">
+                        X
+                    </button>
+                    <h3>Create a Warehouse</h3>
+                    <form
+                        action="#"
+                        id="warehouse-form"
+                        class="form bg-secondary col-12 mx-3"
+                    >
+                        <div class="mb-3 mx-3">
+                            <label
+                                for="warehouse-name"
+                                class="form-label text-center"
+                                >Name</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="warehouse-name"
+                                name="warehouse-name"
+                                placeholder="warehouse name"
+                            />
+                        </div>
+                        <div class="mb-3 mx-3">
+                            <label
+                                for="warehouse-max-capacity"
+                                class="form-label"
+                                >Maximum Capacity</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="warehouse-max-capacity"
+                                name="warehouse-max-capacity"
+                                placeholder="Maximum number of storage locations the warehouse can hold"
+                            />
+                        </div>
+                        <div class="mb-3 mx-3">
+                            <label for="warehouse-country" class="form-label"
+                                >Country</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="warehouse-country"
+                                name="warehouse-country"
+                                placeholder="warehouse country"
+                            />
+                        </div>
+                        <div class="mb-3 mx-3">
+                            <label for="warehouse-state" class="form-label"
+                                >State</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="warehouse-state"
+                                name="warehouse-state"
+                                placeholder="warehouse state"
+                            />
+                        </div>
+                        <div class="mb-3 mx-3">
+                            <label for="warehouse-address" class="form-label"
+                                >Address</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="warehouse-address"
+                                name="warehouse-address"
+                                placeholder="warehouse address"
+                            />
+                        </div>
+                        <div class="mb-3 mx-3">
+                            <label
+                                for="warehouse-address-line-two"
+                                class="form-label"
+                                >Address line two</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="warehouse-address"
+                                name="warehouse-address-line-two"
+                                placeholder="warehouse address line two"
+                            />
+                        </div>
+                        <div class="text-center">
+                            <button
+                                id="create-btn-submit"
+                                type="submit"
+                                class="btn btn-primary mb-5 mt-3"
+                            >
+                                Create Warehouse
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>

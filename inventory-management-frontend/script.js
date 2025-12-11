@@ -196,3 +196,15 @@ document.getElementById("search-btn").addEventListener("click", () => {
     });
     document.getElementById("search-input").value = "";
 });
+
+document
+    .getElementById("warehouse-create-btn")
+    .addEventListener("click", () => {
+        document.getElementById("form-list").classList.remove("d-none");
+    });
+
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+        document.getElementById("form-list").classList.add("d-none");
+    }
+});
