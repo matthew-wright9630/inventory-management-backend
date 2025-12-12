@@ -19,6 +19,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+// Contains the quantity information for items, as the same item can be placed on different lots.
 @Entity
 @Table(name = "lot")
 public class LotNumber {

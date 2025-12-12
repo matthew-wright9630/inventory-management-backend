@@ -9,6 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+// Junction table between warehouse and lotNumbers. Indicates which warehouse holds which lot.
 @Entity
 @Table(name = "warehouse_lots")
 public class WarehouseLot {

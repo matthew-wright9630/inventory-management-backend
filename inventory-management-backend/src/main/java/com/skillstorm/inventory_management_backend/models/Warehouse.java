@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
+// Represents the physical location that items will be stored in.
 @Entity
 public class Warehouse {
 

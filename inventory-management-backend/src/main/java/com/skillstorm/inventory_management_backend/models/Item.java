@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
+// handles the creation of items, which are the linkage between lotNumbers, storageBins, and itemDetails
 @Entity
 public class Item {
 

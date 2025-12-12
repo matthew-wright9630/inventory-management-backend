@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
+// Actual description of what an item is.
 @Entity
 public class ItemDetail {
 

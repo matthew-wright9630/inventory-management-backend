@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+// View to help find the quantity of all items.
 @Entity
 @Immutable
 @Table(name = "item_quantity_vw")

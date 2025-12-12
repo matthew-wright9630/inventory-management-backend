@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
+// Represents where an item is placed in a warehouse. They can either be storage locations, pallets, whatever is best for the client.
 @Entity
 public class StorageBin {
 

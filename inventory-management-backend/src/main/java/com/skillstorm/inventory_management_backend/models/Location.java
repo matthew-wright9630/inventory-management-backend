@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+// Contains the information for the country and state/region.
 @Entity
 @Table(name = "location")
 public class Location {
