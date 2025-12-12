@@ -60,7 +60,11 @@ function router() {
 
         Array.from(children).forEach((child) => {
             if (child.id === "item-" + id) {
+                child.classList.add("col-12");
+                child.classList.add("mb-3");
                 child.classList.remove("d-none");
+
+                populateEditItemForm(child);
             } else {
                 child.classList.add("d-none");
             }
@@ -72,6 +76,8 @@ function router() {
         parent.innerHTML = "";
 
         Array.from(children).forEach((child) => {
+            child.classList.remove("col-12");
+            child.classList.remove("mb-3");
             child.classList.remove("d-none");
         });
         document.getElementById("warehouse-buttons").classList.remove("d-flex");
@@ -130,6 +136,30 @@ function populateEditWarehouseForm(element) {
     editWarehouseAddress.value = address;
     editWarehouseAddressLineTwo.value =
         addressLineTwo === null ? "" : addressLineTwo;
+}
+
+function populateEditItemForm(element) {
+    const name = element.children[0].innerText;
+    const sku = element.children[1].innerText;
+    const description = element.children[2].innerText;
+    const shelfLife = element.children[3].innerText
+        .replace("Shelf Life:", "")
+        .replace("days", "")
+        .trim();
+    console.log(shelfLife);
+
+    let cleanedSku = sku.replace("SKU #:", "").trim();
+    let cleanedDescription = description.replace("Description:", "").trim();
+
+    const editItemName = document.getElementById("update-item-name");
+    const editSku = document.getElementById("update-item-sku");
+    const editDescription = document.getElementById("update-item-description");
+    const editShelfLife = document.getElementById("update-item-shelf-life");
+
+    editItemName.value = name;
+    editSku.value = cleanedSku;
+    editDescription.value = cleanedDescription;
+    editShelfLife.value = Number(shelfLife);
 }
 
 window.addEventListener("hashchange", router);

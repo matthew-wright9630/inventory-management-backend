@@ -348,6 +348,27 @@ function deleteItemDetails(itemDetailId) {
     }).catch((err) => console.error(err));
 }
 
+function updateItemDetail(id, name, sku, description, shelfLife) {
+    const itemDetailsData = {
+        id: id,
+        name: name,
+        sku: sku,
+        description: description,
+        shelfLife: shelfLife,
+    };
+    return fetch(`${URL}/item-details`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(itemDetailsData),
+    })
+        .then((res) => {
+            return res.json();
+        })
+        .catch((err) => console.error(err));
+}
+
 export {
     getAllWarehouses,
     getActiveStorageBinsInWarehouse,
@@ -368,4 +389,5 @@ export {
     updateLotNumber,
     deleteWarehouse,
     deleteItemDetails,
+    updateItemDetail,
 };

@@ -18,6 +18,7 @@ import {
     updateLotNumber,
     deleteWarehouse,
     deleteItemDetails,
+    updateItemDetail,
 } from "./api.js";
 
 let listOfWarehouses = [];
@@ -144,8 +145,7 @@ function addItemDetailsToList(itemDetail, itemQuantityObject, lots = []) {
     skuEl.innerText = "SKU #: " + itemDetail.sku;
     descriptionEl.innerText = "Description: " + itemDetail.description;
     shelfLifeEl.innerText = "Shelf Life: " + itemDetail.shelfLife + " days";
-    quantityEl.innerText =
-        "Quantity of item in network: " + itemQuantityObject.quantity;
+    quantityEl.innerText = "Quantity of item in network: " + itemQuantityObject;
 
     itemDiv.appendChild(titleEl);
     itemDiv.appendChild(skuEl);
@@ -299,6 +299,7 @@ document
         document
             .getElementById("delete-warehouse-form")
             .classList.add("d-none");
+        document.getElementById("update-item-form").classList.add("d-none");
     });
 
 document.getElementById("item-form").addEventListener("submit", (event) => {
@@ -452,6 +453,7 @@ document.getElementById("item-create-btn").addEventListener("click", () => {
     document.getElementById("edit-inventory-form").classList.add("d-none");
     document.getElementById("delete-warehouse-form").classList.add("d-none");
     document.getElementById("delete-item-form").classList.add("d-none");
+    document.getElementById("update-item-form").classList.add("d-none");
 });
 
 document
@@ -468,6 +470,7 @@ document
             .getElementById("delete-warehouse-form")
             .classList.add("d-none");
         document.getElementById("delete-item-form").classList.add("d-none");
+        document.getElementById("update-item-form").classList.add("d-none");
     });
 
 document.getElementById("edit-warehouse-btn").addEventListener("click", () => {
@@ -479,6 +482,7 @@ document.getElementById("edit-warehouse-btn").addEventListener("click", () => {
     document.getElementById("edit-inventory-form").classList.add("d-none");
     document.getElementById("delete-warehouse-form").classList.add("d-none");
     document.getElementById("delete-item-form").classList.add("d-none");
+    document.getElementById("update-item-form").classList.add("d-none");
 });
 
 document.getElementById("edit-inventory-btn").addEventListener("click", () => {
@@ -491,6 +495,7 @@ document.getElementById("edit-inventory-btn").addEventListener("click", () => {
     document.getElementById("edit-inventory-form").classList.remove("d-none");
     document.getElementById("delete-warehouse-form").classList.add("d-none");
     document.getElementById("delete-item-form").classList.add("d-none");
+    document.getElementById("update-item-form").classList.add("d-none");
 });
 
 document
@@ -506,6 +511,7 @@ document
         document
             .getElementById("delete-warehouse-form")
             .classList.remove("d-none");
+        document.getElementById("update-item-form").classList.add("d-none");
     });
 
 document.getElementById("delete-item-btn").addEventListener("click", () => {
@@ -517,6 +523,19 @@ document.getElementById("delete-item-btn").addEventListener("click", () => {
     document.getElementById("edit-inventory-form").classList.add("d-none");
     document.getElementById("delete-item-form").classList.remove("d-none");
     document.getElementById("delete-warehouse-form").classList.add("d-none");
+    document.getElementById("update-item-form").classList.add("d-none");
+});
+
+document.getElementById("update-item-btn").addEventListener("click", () => {
+    document.getElementById("form-list").classList.remove("d-none");
+    document.getElementById("warehouse-form").classList.add("d-none");
+    document.getElementById("item-form").classList.add("d-none");
+    document.getElementById("inventory-form").classList.add("d-none");
+    document.getElementById("edit-warehouse-form").classList.add("d-none");
+    document.getElementById("edit-inventory-form").classList.add("d-none");
+    document.getElementById("delete-item-form").classList.add("d-none");
+    document.getElementById("delete-warehouse-form").classList.add("d-none");
+    document.getElementById("update-item-form").classList.remove("d-none");
 });
 
 document.getElementById("item-addition").addEventListener("change", (event) => {
@@ -748,6 +767,40 @@ document
             getItemInformation();
             window.location.reload();
         });
+    });
+
+document
+    .getElementById("update-item-form")
+    .addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(event.target);
+        const name = formData.get("update-item-name");
+        const sku = formData.get("update-item-sku");
+        const description = formData.get("update-item-description");
+        const shelfLife = formData.get("update-item-shelf-life");
+
+        const hash = window.location.hash;
+        const parts = hash.split("/");
+        console.log(parts);
+        const itemDetailsId = Number(parts[2]);
+        console.log(itemDetailsId);
+
+        updateItemDetail(itemDetailsId, name, sku, description, shelfLife)
+            .then((item) => {
+                if (item) {
+                    getItemInformation();
+                    document.getElementById("update-item-form").reset();
+                    document
+                        .getElementById("form-list")
+                        .classList.add("d-none");
+                    window.location.hash = "#/items/";
+                    window.location.reload();
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+            });
     });
 
 export function resetOptions() {
