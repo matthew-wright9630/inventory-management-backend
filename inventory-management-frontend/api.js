@@ -265,6 +265,53 @@ function createItem(storageBinId, itemDetailId) {
         .catch((err) => console.error(err));
 }
 
+function updateLocation(country, stateOrRegion) {
+    const locationData = {
+        country: country,
+        stateOrRegion: stateOrRegion,
+    };
+    return fetch(`${URL}/locations`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(locationData),
+    })
+        .then((res) => {
+            return res.json();
+        })
+        .catch((err) => console.error(err));
+}
+
+function updateWarehouse(
+    warehouseId,
+    warehouseName,
+    maxCapacity,
+    location,
+    address,
+    addressLineTwo
+) {
+    const warehouseData = {
+        id: warehouseId,
+        name: warehouseName,
+        maximumCapacity: maxCapacity,
+        address: address,
+        addressLineTwo: addressLineTwo,
+        location: location,
+    };
+    return fetch(`${URL}/warehouses?locationId=${location.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(warehouseData),
+    })
+        .then((res) => {
+            return res.json();
+        })
+        .catch((err) => console.error(err));
+}
+
 export {
     getAllWarehouses,
     getActiveStorageBinsInWarehouse,
@@ -280,4 +327,6 @@ export {
     createItemDetails,
     createItem,
     createLotNumber,
+    updateLocation,
+    updateWarehouse,
 };

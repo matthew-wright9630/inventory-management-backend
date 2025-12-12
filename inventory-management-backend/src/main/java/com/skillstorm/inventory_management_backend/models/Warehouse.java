@@ -51,6 +51,16 @@ public class Warehouse {
     public Warehouse() {
     }
 
+    public Warehouse(int id, String name, int maximumCapacity, String address, String addressLineTwo,
+            Location location) {
+        this.id = id;
+        this.name = name;
+        this.maximumCapacity = maximumCapacity;
+        this.address = address;
+        this.addressLineTwo = addressLineTwo;
+        this.location = location;
+    }
+
     public Warehouse(String name, int maximumCapacity, String address, String addressLineTwo) {
         this.name = name;
         this.maximumCapacity = maximumCapacity;

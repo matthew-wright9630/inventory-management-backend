@@ -141,8 +141,14 @@ public class WarehouseService {
         if (location.getId() <= 0) {
             throw new IllegalArgumentException("Location does not exist. Please try with another location.");
         }
+        Warehouse existingWarehouse = findWarehouseById(warehouse.getId());
         if (warehouse.getId() > 0) {
-            warehouse.setLocation(location);
+            existingWarehouse.setLocation(location);
+            existingWarehouse.setName(warehouse.getName());
+            existingWarehouse.setMaximumCapacity(warehouse.getMaximumCapacity());
+            existingWarehouse.setAddress(warehouse.getAddress());
+            existingWarehouse.setAddressLineTwo(warehouse.getAddressLineTwo());
+            existingWarehouse.setActive(warehouse.isActive());
             WarehouseValidator.validateWarehouse(warehouse);
             warehouseRepository.save(warehouse);
             return warehouse;

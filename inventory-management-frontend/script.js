@@ -13,6 +13,8 @@ import {
     createStorageBin,
     createItem,
     createLotNumber,
+    updateLocation,
+    updateWarehouse,
 } from "./api.js";
 
 const listOfWarehouses = [];
@@ -176,6 +178,9 @@ function addItemToList(storageBin, items) {
     let itemListEl = document.createElement("ul");
     items.forEach((item) => {
         getLotNumbersByItemId(item.id).then((lot) => {
+            if (lot.quantity === undefined) {
+                lot.quantity = 0;
+            }
             let itemLi = document.createElement("li");
             itemLi.innerHTML = `
             <strong>${item.itemDetail.name}</strong> (SKU: ${item.itemDetail.sku})<br>
@@ -355,6 +360,50 @@ document
                         .getElementById("form-list")
                         .classList.add("d-none");
                 }
+            })
+            .catch((err) => console.error(err));
+    });
+
+document
+    .getElementById("edit-warehouse-form")
+    .addEventListener("submit", (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+
+        const hash = window.location.hash;
+        const parts = hash.split("/");
+        const warehouseId = Number(parts[2]);
+
+        const name = formData.get("edit-warehouse-name");
+        const maxCapacity = formData.get("edit-warehouse-max-capacity");
+        const country = formData.get("edit-warehouse-country");
+        const stateOrRegion = formData.get("edit-warehouse-state");
+        const address = formData.get("edit-warehouse-address");
+        const addressLineTwo = formData.get("edit-warehouse-address-line-two");
+
+        updateLocation(country, stateOrRegion)
+            .then((location) => {
+                updateWarehouse(
+                    warehouseId,
+                    name,
+                    maxCapacity,
+                    location,
+                    address,
+                    addressLineTwo
+                ).then((warehouse) => {
+                    if (warehouse) {
+                        console.log("Success?");
+                        const container =
+                            document.getElementById("warehouse-list");
+                        container.innerHTML = "";
+                        getWarehouseDetails();
+                        document.getElementById("warehouse-form").reset();
+                        document
+                            .getElementById("form-list")
+                            .classList.add("d-none");
+                        window.location.hash = "#/warehouses/";
+                    }
+                });
             })
             .catch((err) => console.error(err));
     });
